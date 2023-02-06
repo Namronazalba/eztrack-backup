@@ -1,0 +1,38 @@
+@media(max-width: 576px) {
+    .container-desktop {
+        display: none;  
+    }
+    .container-details-desktop  {
+        display: none;
+    }
+    .nav-bar-desktop {
+        display: none;
+    }
+}
+
+@media(min-width: 576px) {
+    .container-mobile {
+        display: none; 
+    }
+    .container-details-mobile  {
+        display: none;
+    }
+    .nav-bar-mobile {
+        display: none;
+    } 
+}
+ 
+.burger {
+    color: black;
+}
+.burger:hover {
+    color: red;
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+@media(max-width: 576px) {
+    #dashboard-desktop {
+        display: none;
+    }
+    .travelling-desktop-container {
+        display: none;
+    }
+    .trouble-shooting-desktop {
+        display: none;
+    }
+} 
+
+@media(min-width: 576px) {
+    #dashboard-mobile {
+        display: none;
+    }
+    .travelling-mobile-container{
+        display: none;
+    }
+    .trouble-shooting-mobile {
+        display:none;
+    }
+}

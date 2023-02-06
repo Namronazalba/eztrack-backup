@@ -1,0 +1,12 @@
+@media(max-width: 576px) {
+    #trouble-shooting-desktop {
+        display: none;
+    }
+    
+}
+
+@media(min-width: 576px) {
+    #trouble-shooting-mobile {
+        display:none;
+    }
+}
