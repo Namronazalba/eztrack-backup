@@ -3,7 +3,8 @@
 include '../connection.php';
 
 $last_name = $first_name = $address = $contact_no = $gender = $role = $username = $password = $confirm_password = "";
-$last_name_err = $first_name_err = $address_err = $contact_no_err = $gender_err = $role_err = $username_err = $password_err = $confirm_password_err = "";
+$last_name_err = $first_name_err = $address_err = $contact_no_err = $gender_err = $role_err = $username_err = 
+$password_err = $confirm_password_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $last_name = mysqli_real_escape_string($dbc, $_POST['last_name']);
   $first_name = mysqli_real_escape_string($dbc, $_POST['first_name']);
@@ -46,14 +47,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $contact_no = $input_contact;
   }
   //validate gender
-  $input_gender =  isset($_POST['gender']);
+  $input_gender =  trim($_POST['gender']);
   if(empty($input_gender)){
     $gender_err = "Gender is required";
   }else{
     $gender = $input_gender;
   }
   //validate role 
-  $input_role =  isset($_POST['role']);
+  $input_role =  trim($_POST['role']);
   if(empty($input_role)){
     $role_err = "Role is required";
   }else{
@@ -93,7 +94,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if($stmt = mysqli_prepare($dbc, $sql)){
       // Bind variables to the prepared statement as parameters
-      mysqli_stmt_bind_param($stmt, "ssssssss", $param_lname,$param_fname,$param_address,$param_contact,$param_gender,$param_role,$param_username,$param_pass);
+      mysqli_stmt_bind_param($stmt, "ssssssss", $param_lname,$param_fname,$param_address,$param_contact,$param_gender,$param_role,
+      $param_username,$param_pass);
       
       // Set parameters
       $param_lname = $last_name;
@@ -148,7 +150,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                   <div class="col">
                     <div class="form-group mb-3">
                       <label class="form-label">Last Name</label>
-                      <input type="text" class="form-control <?php echo (!empty($last_name)) ? 'is-invalid' : ''; ?>" name="last_name" value="<?php echo $last_name; ?>" placeholder="Enter last name" autocomplete="off">
+                      <input type="text" class="form-control <?php echo (!empty($last_name)) ? 'is-invalid' : ''; ?>" name="last_name" 
+                      value="<?php echo $last_name; ?>" placeholder="Enter last name" autocomplete="off">
                       <span class="" style="color: red;"><?php echo $last_name_err;?></span>
                     </div>
                   </div>
@@ -222,7 +225,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class="form-group mb-3">
                       <label class="form-label">Confirm Password</label>
                       <input type="password" class="form-control <?php echo (!empty($confirm_password)) ? 'is-invalid' : ''; ?>" 
-                      name="confirm_password" placeholder="Confirm password" id="myInput2" autocomplete="off" value="<?php echo $confirm_password; ?>">
+                      name="confirm_password" placeholder="Confirm password" id="myInput2" autocomplete="off" value="<?php echo $password; ?>">
                       <span class="" style="color: red;"><?php echo $confirm_password_err;?></span>
                     </div>
                   </div>

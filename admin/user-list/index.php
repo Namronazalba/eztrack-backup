@@ -1,11 +1,4 @@
-<?php
-include '../connection.php';
-$query = "SELECT * FROM tbl_user_technician";
-$result = mysqli_query($dbc, $query);
-if (!$result) {
-  die('Query Failed' . mysqli_connect_error());
-}
-?>
+
 
 <!--doctype, head, css link, js link-->
 <?php include '../layouts/link.php'; ?>
@@ -40,6 +33,14 @@ if (!$result) {
                 <th>ACTIONS</th>
               </tr>
             </thead>
+            <?php
+            include '../connection.php';
+            $query = "SELECT * FROM tbl_user_technician";
+            $result = mysqli_query($dbc, $query);
+            if (!$result) {
+            die('Query Failed' . mysqli_connect_error());
+            }
+            ?>
             <tbody style="vertical-align:middle">
               <?php
               if (mysqli_num_rows($result) > 0) {
