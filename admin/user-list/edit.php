@@ -5,7 +5,6 @@ require_once "../connection.php";
 // Define variables and initialize with empty values
 $last_name=$first_name=$address=$contact_no=$gender=$role=$username=$password=$confirm_password ="";
 $last_name_err=$first_name_err=$address_err=$contact_no_err=$gender_err=$role_err=$username_err=$password_err=$confirm_password_err="";
-$decrypt_pass=password_hash($password, PASSWORD_DEFAULT);
  
 // Processing form data when form is submitted
 if(isset($_POST["id"]) && !empty($_POST["id"])){
@@ -299,7 +298,7 @@ mysqli_close($dbc);
                       <div class="form-group mb-3">
                         <label class="form-label">Password</label>
                         <input type="password" class="form-control <?php echo (empty($password)) ? 'is-invalid' : ''; ?>" name="password" 
-                        placeholder="Enter password" id="myInput1" autocomplete="off" value="<?php echo $decrypt_pass; ?>">
+                        placeholder="Enter password" id="myInput1" autocomplete="off">
                         <span class="" style="color: red;"><?php echo $password_err;?></span>
                       </div>
                     </div>
