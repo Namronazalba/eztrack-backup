@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link s-font" href="#">
+                <a class="nav-link s-font" href="logout.php" onclick="return confirm('Are you sure you want to logout?');">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Sign out
                 </a>

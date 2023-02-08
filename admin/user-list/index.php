@@ -58,7 +58,7 @@
                     <td><?= $data['role']; ?></td>
                     <td>
                       <a href="edit.php?id=<?= $data['id']; ?>" class="btn btn-danger btn-sm b-width">Edit</a>
-                      <a href="delete.php?id=<?= $data['id']; ?>" class="btn btn-danger btn-sm b-width">Delete</a>
+                      <a href="delete.php?id=<?= $data['id']; ?>" class="btn btn-danger btn-sm b-width" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
                     </td>
                   </tr>
                 <?php
