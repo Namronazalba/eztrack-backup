@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../connection.php';
 $query = "SELECT * FROM tbl_reason_for_offline";
 $result = mysqli_query($dbc, $query);
@@ -20,11 +21,34 @@ if (!$result) {
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
           <h2 class="s-header">OFFLINE REASON</h2>
+
           <div class="d-flex justify-content-center">
             <a href="new.php" class="btn btn-success btn-sm b-width b-mt">New</a>
           </div>
         </div>
+
+        <?php
+            if(isset($_SESSION['success'])){
+            ?>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>Awsome!</strong> <?= $_SESSION['success']; ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <?php 
+              unset($_SESSION['success']);
+            }elseif(isset($_SESSION['success1'])){
+            ?>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Hey !</strong> <?= $_SESSION['success1']; ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <?php               
+              unset($_SESSION['success1']);
+            }
+          ?>
+
         <div class="table-responsive mt-3 mb-5 bx-shadow">
+
           <table class="table table-striped table-md table-hover">
             <thead style="background: #9F2727;">
               <tr class="text-white text-center" style="vertical-align:middle">

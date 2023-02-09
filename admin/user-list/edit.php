@@ -1,10 +1,11 @@
 <?php
+session_start();
 // Include config file
 require_once "../connection.php";
  
 // Define variables and initialize with empty values
 $last_name=$first_name=$address=$contact_no=$gender=$role=$username=$password=$confirm_password ="";
-$last_name_err=$first_name_err=$address_err=$contact_no_err=$gender_err=$role_err=$username_err=$password_err=$confirm_password_err="";
+$last_name_err=$first_name_err=$address_err=$contact_no_err=$gender_err=$role_err=$password_err=$confirm_password_err="";
  
 // Processing form data when form is submitted
 if(isset($_POST["id"]) && !empty($_POST["id"])){
@@ -57,13 +58,9 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     }else{
       $role = $input_role;
     }
-    //validate username
-    $input_username = $_POST['username'];
-    if(empty($input_username)){
-      $username_err = "Username is requied";
-    }else{
-      $username = $input_username;
-    }
+    //username
+    $username = $_POST['username'];
+  
     // Validate password
     if(empty(trim($_POST["password"]))){
     $password_err = "Please enter a password.";     
@@ -108,6 +105,7 @@ $sql = "UPDATE tbl_user_technician SET last_name=?, first_name=?, address=?, con
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Records updated successfully. Redirect to landing page
+                $_SESSION['success'] = "Updated successfully";
                 header("location: index.php");
                 exit();
             } else{
@@ -190,7 +188,7 @@ mysqli_close($dbc);
       <!-- Main -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2  border-bottom">
-          <h2 class="s-header">EDIT USER</h2>
+          <h2 class="s-header" style="text-transform: uppercase;">EDIT <?php echo $username; ?></h2>
           <div class="b-mt">
             <a href="index.php" class="btn btn-secondary btn-sm b-width">Back</a>
           </div>
@@ -284,21 +282,15 @@ mysqli_close($dbc);
                         <span class="" style="color: red;"><?php echo $role_err;?></span>
                       </div>
                     </div>
-                    <div class="row mb-3">
-                  <div class="col">
-                    <div class="form-group">
-                      <label class="form-label">Username</label>
-                      <input type="text" class="form-control <?php echo (empty($username)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>"
-                      name="username" placeholder="Enter username" autocomplete="off">
-                      <span class="" style="color: red;"><?php echo $username_err;?></span>
-                    </div>
-                  </div>
-                  <div class="row">
+                      <input type="text" class="form-control" value="<?php echo $username; ?>"
+                      name="username" placeholder="Enter username" autocomplete="off" hidden>
+
+                  <div class="row mt-3">
                     <div class="col">
                       <div class="form-group mb-3">
                         <label class="form-label">Password</label>
                         <input type="password" class="form-control <?php echo (empty($password)) ? 'is-invalid' : ''; ?>" name="password" 
-                        placeholder="Enter password" id="myInput1" autocomplete="off">
+                        placeholder="Enter password" id="myInput1" autocomplete="off" value="">
                         <span class="" style="color: red;"><?php echo $password_err;?></span>
                       </div>
                     </div>
@@ -306,7 +298,7 @@ mysqli_close($dbc);
                       <div class="form-group mb-3">
                         <label class="form-label">Confirm Password</label>
                         <input type="password" class="form-control <?php echo (!empty($confirm_password)) ? 'is-invalid' : ''; ?>" 
-                        name="confirm_password" placeholder="Confirm password" id="myInput2" autocomplete="off">
+                        name="confirm_password" placeholder="Confirm password" id="myInput2" autocomplete="off" value="">
                         <span class="" style="color: red;"><?php echo $confirm_password_err;?></span>
                       </div>
                     </div>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../connection.php';
 $query = "SELECT * FROM tbl_cause_of_offline";
 $result = mysqli_query($dbc, $query);
@@ -24,6 +25,25 @@ if (!$result) {
             <a href="new.php" class="btn btn-success btn-sm b-mt b-width">New</a>
           </div>
         </div>
+        <?php
+            if(isset($_SESSION['success'])){
+            ?>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>Awsome!</strong> <?= $_SESSION['success']; ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <?php 
+              unset($_SESSION['success']);
+            }elseif(isset($_SESSION['delete'])){
+            ?>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Hey !</strong> <?= $_SESSION['delete']; ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <?php               
+              unset($_SESSION['delete']);
+            }
+          ?>
         <div class="table-responsive mt-3 mb-5 bx-shadow">
           <table class="table table-striped table-md table-hover">
             <thead style="background: #9F2727;" >

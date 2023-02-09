@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Include config file
 require_once '../connection.php';
  
@@ -36,6 +37,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Records updated successfully. Redirect to landing page
+                $_SESSION['success'] = "Updated successfully";
                 header("location: index.php");
                 exit();
             } else{

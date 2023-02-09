@@ -1,7 +1,9 @@
 <!--doctype, head, css link, js link-->
+
 <?php include '../layouts/link.php'; ?>
 
 <?php
+session_start();
 ini_set('display_errors', 0);
 // Include config file
 require_once '../connection.php';
@@ -52,6 +54,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Records updated successfully. Redirect to landing page
+                $_SESSION['success'] = "Updated successfully";
                 header("location: index.php");
                 exit();
             } else{

@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Include config file
 require_once '../connection.php';
 // Define variables and initialize with empty values
@@ -28,6 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Records created successfully. Redirect to landing page
+                $_SESSION['success'] = "Created successfully";
                 header("location: index.php");
                 exit();
             } else{
