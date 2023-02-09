@@ -1,7 +1,7 @@
 <?php
 // Include config file
 include '../connection.php';
-
+ini_set('display_errors', 0);
 $last_name = $first_name = $address = $contact_no = $gender = $role = $username = $password = $confirm_password = "";
 $last_name_err = $first_name_err = $address_err = $contact_no_err = $gender_err = $role_err = $username_err = 
 $password_err = $confirm_password_err = "";

@@ -44,8 +44,9 @@ if (!$result) {
                     <td><?php echo $data['action_taken_name']; ?></td>
                     <td><?php echo date('M d, Y', strtotime($data['date_created'])); ?></td>
                     <td>
-                        <a href="#" class="btn btn-danger btn-sm b-width">Edit</a>
-                        <a href="#" class="btn btn-danger btn-sm b-width ">Delete</a>
+                        <a href="edit.php?id=<?php echo $data['action_id'];?>" class="btn btn-danger btn-sm b-width">Edit</a>
+                        <a href="delete.php?id=<?php echo $data['action_id'];?>" class="btn btn-danger btn-sm b-width "
+                        onclick="return confirm('Are you sure you want to delete?');">Delete</a>
                     </td>
                   </tr>
                 <?php

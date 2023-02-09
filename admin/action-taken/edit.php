@@ -3,8 +3,8 @@
 require_once '../connection.php';
  
 // Define variables and initialize with empty values
-$offline_reason = "";
-$offline_reason_err = "";
+$action_taken = "";
+$action_taken_err = "";
  
 // Processing form data when form is submitted
 if(isset($_POST["id"]) && !empty($_POST["id"])){
@@ -12,25 +12,25 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     $id = $_POST["id"];
     
     // Validate name
-    $input_offline_reason = trim($_POST["offline_reason"]);
-    if(empty($input_offline_reason)){
-        $offline_reason_err = "This field must required.";
+    $input_action_taken = trim($_POST["action_taken"]);
+    if(empty($input_action_taken)){
+        $action_taken_err = "This field must required.";
     }else{
-        $offline_reason = $input_offline_reason;
+        $action_taken = $input_action_taken;
     }
     
     
     // Check input errors before inserting in database
-    if(empty($offline_reason_err)){
+    if(empty($action_taken_err)){
         // Prepare an update statement
-        $sql = "UPDATE tbl_reason_for_offline SET reason_for_offline_name=? WHERE reason_id=?";
+        $sql = "UPDATE tbl_action_taken SET action_taken_name=? WHERE action_id=?";
          
         if($stmt = mysqli_prepare($dbc, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "si", $param_offline_reason, $param_id);
+            mysqli_stmt_bind_param($stmt, "si", $param_action_taken, $param_id);
             
             // Set parameters
-            $param_offline_reason = $offline_reason;
+            $param_action_taken = $action_taken;
             $param_id = $id;
             
             // Attempt to execute the prepared statement
@@ -56,7 +56,7 @@ mysqli_close($dbc);
         $id =  trim($_GET["id"]);
         
         // Prepare a select statement
-        $sql = "SELECT * FROM tbl_reason_for_offline WHERE reason_id = ?";
+        $sql = "SELECT * FROM tbl_action_taken WHERE action_id = ?";
         if($stmt = mysqli_prepare($dbc, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "i", $param_id);
@@ -74,7 +74,7 @@ mysqli_close($dbc);
                     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                     
                     // Retrieve individual field value
-                    $offline_reason = $row["reason_for_offline_name"];
+                    $action_taken = $row["action_taken_name"];
                 } else{
                     // URL doesn't contain valid id. Redirect to error page
                     header("location: error.php");
@@ -122,9 +122,9 @@ mysqli_close($dbc);
                             <form method="POST" action="edit.php">
 
                                     <div class="form-group mb-3">
-                                        <label class="form-label">Offline reason</label>
-                                        <input type="text" name="offline_reason" value="<?php echo $offline_reason ?>" class="form-control <?php echo (!empty($offline_reason_err)) ? 'is-invalid' : ''; ?>" placeholder="Enter Content">
-                                        <span class="invalid-feedback"><?php echo $offline_reason_err;?></span>
+                                        <label class="form-label">Action taken</label>
+                                        <input type="text" name="action_taken" value="<?php echo $action_taken ?>" class="form-control <?php echo (!empty($action_taken_err)) ? 'is-invalid' : ''; ?>" placeholder="Enter Content">
+                                        <span class="invalid-feedback"><?php echo $action_taken_err;?></span>
                                     </div>
                                     <input type="hidden" value="<?php echo $id; ?>" name="id">
                                     <div class="d-flex justify-content-center">
