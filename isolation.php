@@ -142,12 +142,16 @@ if (isset($_GET['vid'])){
                 }
 
                 // UPDATE TROUBLESHOOT REPORT
-                $update_data = 'UPDATE tbl_trblesht_report
-                SET timeof_arrival ="' . $arrival_time . '",
-                traveling_time = "' . $traveling_time . '", vehicle_status ="' . $vstats . '",
-                work_time_start ="' . $work_start . '", reason_offline="' . $reason_offline . '",
-                cause_offline ="' . $cause_offline . '", complete_address="' . $address . '", date_submitted = NOW() WHERE id ="' . $id . '"';
-                mysqli_query($dbc, $update_data);
+                if(empty($arrival_time_err) && empty($work_start_err) && empty($reason_offline_err) && empty($cause_offline_err) && empty($address_err)){
+                    $update_data = 'UPDATE tbl_trblesht_report
+                    SET timeof_arrival ="' . $arrival_time . '",
+                    traveling_time = "' . $traveling_time . '", vehicle_status ="' . $vstats . '",
+                    work_time_start ="' . $work_start . '", reason_offline="' . $reason_offline . '",
+                    cause_offline ="' . $cause_offline . '", complete_address="' . $address . '", date_submitted = NOW() WHERE id ="' . $id . '"';
+                    mysqli_query($dbc, $update_data);
+                    header('location: troubleshooting.php?account_id='.$account_id.'&vid='.$vid);
+                }
+
 
                 // QUERY LAST RECORD OF CURRENT USER
                 $sql_record = "SELECT t1.* FROM tbl_trblesht_report t1
@@ -176,13 +180,6 @@ if (isset($_GET['vid'])){
             $result = mysqli_query($dbc, $sql);
             $total = mysqli_num_rows($result);
             $data = mysqli_fetch_array($result);
-
-            if (
-                !empty($data['timeof_arrival']) && !empty($data['work_time_start'])
-                && !empty($data['reason_offline']) && !empty($data['cause_offline']) && !empty($data['complete_address'])
-            ) {
-                header('location: troubleshooting.php?account_id='.$account_id.'&vid='.$vid);
-            }
             ?>
             <!-- content -->
             <div class="card-body">

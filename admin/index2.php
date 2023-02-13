@@ -1,6 +1,5 @@
 <?php 
-include('session.php');
-include('session_admin.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

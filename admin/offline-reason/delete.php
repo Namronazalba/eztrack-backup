@@ -21,7 +21,7 @@ $id = $_GET['id'];
                         echo "Content does not exist";
                     }
                 } else {
-                    $_SESSION['success1'] = "Unable to delete this data is related to reason for offline";
+                    $_SESSION['success1'] = "Unable to delete, this data is related to cause of offline";
                     header("Location: index.php");
                 }
             }

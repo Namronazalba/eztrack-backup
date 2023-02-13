@@ -26,6 +26,17 @@ if (isset($_GET['account_id'])) {
     $account_id = $_GET['account_id'];
 }
 
+
+if (isset($_SESSION['data_id']) && isset($_SESSION['user_id']) && isset($_GET['vid'])) {
+    $data_id = $_SESSION['data_id'];
+    $user_id = $_SESSION['user_id'];
+    $vid = $_GET['vid'];
+} else {
+    $data_id = '';
+    $user_id = '';
+    $vid = '';
+}
+
 // Add new record
 if (isset($_POST['submit'])) {
 
@@ -52,6 +63,7 @@ if (isset($_POST['submit'])) {
         $user_id = $_POST['user_id'];
         $sql = "insert into tbl_trblesht_report (date_performed, departure_time, vid, technician, technician_id, date_submitted) value( '" . $date_start . "', '" . $departure_time . "', '" . $vid . "', '" . $user_technician_name . "', '" . $user_id . "', now())";
         $result = mysqli_query($dbc, $sql);
+        header('location: isolation.php?account_id='.$account_id.'&vid='.$vid);
 
         // SELECT LAST RECORD FOR OF REPORT AND GET ID
         $sql_record = "SELECT t1.* FROM tbl_trblesht_report t1
@@ -60,20 +72,11 @@ if (isset($_POST['submit'])) {
         WHERE technician_id = '$user_id' AND vid = '$vid')";
 
         $result1 = mysqli_query($dbc, $sql_record);
-        echo $total1 = mysqli_num_rows($result1);
         $data1 = mysqli_fetch_array($result1);
         $_SESSION['data_id'] = $data1['id'];
     }
 }
-if (isset($_SESSION['data_id']) && isset($_SESSION['user_id']) && isset($_GET['vid'])) {
-    $data_id = $_SESSION['data_id'];
-    $user_id = $_SESSION['user_id'];
-    $vid = $_GET['vid'];
-} else {
-    $data_id = '';
-    $user_id = '';
-    $vid = '';
-}
+
 
 // SELECT LAST RECORD FOR OF REPORT AND CHECK IF EXISTING
 $sql = "SELECT t1.*
@@ -86,9 +89,6 @@ $result = mysqli_query($dbc, $sql);
 $total = mysqli_num_rows($result);
 $data = mysqli_fetch_array($result);
 
-if (!empty($data['date_performed']) && !empty($data['departure_time'])) {
-    header('location: isolation.php?account_id='.$account_id.'&vid='.$vid);
-}
 if (isset($_GET['vid'])){
     $vid = $_GET['vid'];
     $query_detail = "SELECT * FROM tbl_cvehicles WHERE vid = $vid";

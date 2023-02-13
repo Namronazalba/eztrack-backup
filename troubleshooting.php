@@ -91,7 +91,7 @@ include('session.php');
                     </div>
                     <div class="mb-3">
                         <label for="contact_no" class="form-label">Contact No.</label>
-                        <input type="number" class="form-control" id="contact_no" name="contact" required>
+                        <input type="number" class="form-control" id="contact_no" name="contact" maxlength="11" required>
                     </div>
                     <div class="mb-3">
                         <label for="coordinated_by" class="form-label">Coordinated By</label>
@@ -106,4 +106,11 @@ include('session.php');
 </body>
 
 </html>
+<script>
+    document.querySelectorAll('input[type="number"]').forEach(input =>{
+        input.oninput = () =>{
+            if(input.value.length > input.maxLength) input.value = input.value.slice(0,input.maxLength);
+        }
+    })
+</script>
 <script src="script/script.js"></script>
